@@ -1,0 +1,15 @@
+version: "3"
+services:
+  zhulong-web:
+    hostname: tool
+    image: 172.16.56.117:18090/dzyx/zhulong-web:latest
+    container_name: zhulong-web
+    restart: always
+    ports:
+      - "18010:18010"
+    networks:
+      - dzyx-server-network
+
+networks:
+  dzyx-server-network:
+    external: false

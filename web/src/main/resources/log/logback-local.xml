@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <property name="LOG_HOME" value="logs"/>
+    <springProperty scope="context" name="LOG_FILE_NAME" source="spring.application.name" defaultValue=""/>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
+            <pattern>%d %5p [%t:%C:%L] - %m%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+    <appender name="INFO_ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <prudent>false</prudent>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- 基于时间和大小的轮转策略中fileNamePattern位置很重要，他决定了生成文件的名称及轮转时机,以及是否压缩 -->
+            <!-- %d决定以什么时间维度轮转(但实际轮转时机取决于日志事件的到达时间)，比如%d{yyyy/MM}:每个月开始的时候轮转,%d默认为 yyyy-MM-dd：按天轮转 -->
+            <!-- %i为文件按照maxFileSize大小规定轮转后的序号 -->
+            <!-- 后缀以".zip"或".gz"结尾，则开启日志文件压缩 -->
+            <fileNamePattern>${LOG_HOME}/${LOG_FILE_NAME}/info.%d{yyyy-MM-dd}-%i.log.gz</fileNamePattern>
+            <!-- 单个日志文件最大大小，当文件达到该大小则触发截断（以及压缩）-->
+            <maxFileSize>100MB</maxFileSize>
+            <!-- 日志文件保留最大时间滚动周期，比如当filaNamePattern中%d以为dd结尾时，则保留60天-->
+            <maxHistory>7</maxHistory>
+            <!-- 日志文件保留的总的最大大小-->
+            <totalSizeCap>10GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
+            <pattern>%d %5p [%t:%C:%L] - %m%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+    <appender name="WARN_ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>WARN</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <prudent>false</prudent>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- 基于时间和大小的轮转策略中fileNamePattern位置很重要，他决定了生成文件的名称及轮转时机,以及是否压缩 -->
+            <!-- %d决定以什么时间维度轮转(但实际轮转时机取决于日志事件的到达时间)，比如%d{yyyy/MM}:每个月开始的时候轮转,%d默认为 yyyy-MM-dd：按天轮转 -->
+            <!-- %i为文件按照maxFileSize大小规定轮转后的序号 -->
+            <!-- 后缀以".zip"或".gz"结尾，则开启日志文件压缩 -->
+            <fileNamePattern>${LOG_HOME}/${LOG_FILE_NAME}/warn.%d{yyyy-MM-dd}-%i.log.gz</fileNamePattern>
+            <!-- 单个日志文件最大大小，当文件达到该大小则触发截断（以及压缩）-->
+            <maxFileSize>100MB</maxFileSize>
+            <!-- 日志文件保留最大时间滚动周期，比如当filaNamePattern中%d以为dd结尾时，则保留60天-->
+            <maxHistory>7</maxHistory>
+            <!-- 日志文件保留的总的最大大小-->
+            <totalSizeCap>10GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
+            <pattern>%d %5p [%t:%C:%L] - %m%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+    <appender name="ERROR_ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <prudent>false</prudent>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- 基于时间和大小的轮转策略中fileNamePattern位置很重要，他决定了生成文件的名称及轮转时机,以及是否压缩 -->
+            <!-- %d决定以什么时间维度轮转(但实际轮转时机取决于日志事件的到达时间)，比如%d{yyyy/MM}:每个月开始的时候轮转,%d默认为 yyyy-MM-dd：按天轮转 -->
+            <!-- %i为文件按照maxFileSize大小规定轮转后的序号 -->
+            <!-- 后缀以".zip"或".gz"结尾，则开启日志文件压缩 -->
+            <fileNamePattern>${LOG_HOME}/${LOG_FILE_NAME}/error.%d{yyyy-MM}-%i.log.gz</fileNamePattern>
+            <!-- 单个日志文件最大大小，当文件达到该大小则触发截断（以及压缩）-->
+            <maxFileSize>100MB</maxFileSize>
+            <!-- 日志文件保留最大时间滚动周期，比如当filaNamePattern中%d以为dd结尾时，则保留60天-->
+            <maxHistory>7</maxHistory>
+            <!-- 日志文件保留的总的最大大小-->
+            <totalSizeCap>10GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
+            <pattern>%d %5p [%t:%C:%L] - %m%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+    <!-- 日志输出级别 -->
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="INFO_ROLLING"/>
+        <appender-ref ref="WARN_ROLLING"/>
+        <appender-ref ref="ERROR_ROLLING"/>
+    </root>
+</configuration>

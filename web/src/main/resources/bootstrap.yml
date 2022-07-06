@@ -1,0 +1,73 @@
+spring:
+  application:
+    name: zhulong-service
+  main:
+    allow-circular-references: true
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 47.99.108.112:8848
+        namespace: @nacos.namespace@
+      config:
+        sharedConfigs:
+          - dataId: clientcache-etag.yaml
+            refresh: true
+        group: DEFAULT_GROUP
+        prefix: ${spring.application.name}
+        server-addr: 47.99.108.112:8848
+        file-extension: yaml
+  profiles:
+    active: @package.environment@
+server:
+  port: 18010
+logging:
+  config: classpath:log/logback-@package.environment@.xml
+  file:
+    path: /dzyx/logs
+dubbo:
+  protocol:
+    port: 20881
+    name: dubbo
+  cloud:
+    subscribed-services:
+  metadata-report:
+    address: nacos://47.99.108.112:8848
+    registry: redis
+springdoc:
+  swagger-ui:
+    display-request-duration: true
+    groups-order: DESC
+    operationsSorter: method
+    disable-swagger-default-url: true
+    use-root-path: true
+    enabled: false
+  show-actuator: true
+  api-docs:
+    enabled: false
+  packages-to-scan: com.pokeya.zhulong, com.pokeya.yao
+---
+# 本地环境 public
+spring:
+  config:
+    activate:
+      on-profile: local
+---
+# 测试环境
+spring:
+  config:
+    activate:
+      on-profile: develop
+  cloud:
+    nacos:
+      config:
+        namespace: @nacos.namespace@
+---
+# 正式环境
+spring:
+  config:
+    activate:
+      on-profile: release
+  cloud:
+    nacos:
+      config:
+        namespace: @nacos.namespace@
