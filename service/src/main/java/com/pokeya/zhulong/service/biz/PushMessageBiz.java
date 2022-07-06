@@ -33,7 +33,7 @@ public class PushMessageBiz {
 
 
     public PushResponseDto pushMessage(PushDto message) {
-        PushRepository pushRepository = pushRepositoryMap.get(message);
+        PushRepository pushRepository = pushRepositoryMap.get(message.pushUrlEnums().getCode());
         if (pushRepository != null) {
             return pushRepository.push(message);
         } else {

@@ -20,6 +20,11 @@ spring:
     active: @package.environment@
 server:
   port: 18010
+rocketmq:
+  producer:
+    group: zhulong_service_producer_group
+  consumer:
+    group: zhulong_service_consumer_group
 logging:
   config: classpath:log/logback-@package.environment@.xml
   file:
