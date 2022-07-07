@@ -16,7 +16,7 @@ import lombok.Data;
  * }
  */
 @Data
-public class WeComPushContentBo {
+public class WeComPushContentBO {
     /**
      * 文本内容，最长不超过2048个字节，必须是utf8编码
      * markdown内容，最长不超过4096个字节，必须是utf8编码

@@ -4,6 +4,7 @@ package com.pokeya.zhulong.api.constant;
  * @author mac
  */
 public class MqConstant {
+    public static final String TOPIC_TAG_FORMAT = "{0}:{1}";
     /**
      * topic
      */

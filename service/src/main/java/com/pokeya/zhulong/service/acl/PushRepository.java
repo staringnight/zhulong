@@ -1,8 +1,8 @@
 package com.pokeya.zhulong.service.acl;
 
 
-import com.pokeya.zhulong.api.dto.push.PushDto;
-import com.pokeya.zhulong.api.dto.push.PushResponseDto;
+import com.pokeya.zhulong.api.dto.push.PushDTO;
+import com.pokeya.zhulong.api.dto.push.PushResponseDTO;
 import com.pokeya.zhulong.api.enums.push.PushUrlEnums;
 
 /**
@@ -19,5 +19,5 @@ public interface PushRepository {
     /**
      * 推送push
      */
-    PushResponseDto push(PushDto pushDto);
+    PushResponseDTO push(PushDTO pushDto);
 }

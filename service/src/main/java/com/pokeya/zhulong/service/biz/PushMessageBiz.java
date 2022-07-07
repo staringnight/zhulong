@@ -1,8 +1,8 @@
 package com.pokeya.zhulong.service.biz;
 
 import com.pokeya.yao.utils.JSON;
-import com.pokeya.zhulong.api.dto.push.PushDto;
-import com.pokeya.zhulong.api.dto.push.PushResponseDto;
+import com.pokeya.zhulong.api.dto.push.PushDTO;
+import com.pokeya.zhulong.api.dto.push.PushResponseDTO;
 import com.pokeya.zhulong.service.acl.PushRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -32,7 +32,7 @@ public class PushMessageBiz {
     }
 
 
-    public PushResponseDto pushMessage(PushDto message) {
+    public PushResponseDTO pushMessage(PushDTO message) {
         PushRepository pushRepository = pushRepositoryMap.get(message.pushUrlEnums().getCode());
         if (pushRepository != null) {
             return pushRepository.push(message);

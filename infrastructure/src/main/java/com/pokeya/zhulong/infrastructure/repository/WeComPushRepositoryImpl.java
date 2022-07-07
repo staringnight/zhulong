@@ -3,8 +3,8 @@ package com.pokeya.zhulong.infrastructure.repository;
 
 import com.pokeya.yao.utils.HttpUtil;
 import com.pokeya.yao.utils.JSON;
-import com.pokeya.zhulong.api.dto.push.PushDto;
-import com.pokeya.zhulong.api.dto.push.PushResponseDto;
+import com.pokeya.zhulong.api.dto.push.PushDTO;
+import com.pokeya.zhulong.api.dto.push.PushResponseDTO;
 import com.pokeya.zhulong.api.enums.push.PushContentEnums;
 import com.pokeya.zhulong.api.enums.push.PushUrlEnums;
 import com.pokeya.zhulong.infrastructure.beans.WeComPushBean;
@@ -33,7 +33,7 @@ public class WeComPushRepositoryImpl implements PushRepository {
     }
 
     @Override
-    public PushResponseDto push(PushDto pushDto) {
+    public PushResponseDTO push(PushDTO pushDto) {
         try {
             PushContentEnums weComContentEnum = pushDto.pushContentEnums();
             String[] contents = pushDto.contents();
@@ -49,7 +49,7 @@ public class WeComPushRepositoryImpl implements PushRepository {
             String result = HttpUtil.post(url, weComPushBean);
             log.info("企业机器人结果：{}", result);
             //{"errcode":0,"errmsg":"ok"}
-            PushResponseDto pushResponseDto = JSON.parseObject(result, PushResponseDto.class);
+            PushResponseDTO pushResponseDto = JSON.parseObject(result, PushResponseDTO.class);
             if (pushResponseDto.errcode() != 0) {
                 log.warn("企业机器人通知失败！");
             }

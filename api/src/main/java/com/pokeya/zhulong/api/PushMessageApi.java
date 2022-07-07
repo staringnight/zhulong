@@ -1,8 +1,8 @@
 package com.pokeya.zhulong.api;
 
-import com.pokeya.zhulong.api.dto.push.PushDto;
-import com.pokeya.zhulong.api.dto.push.PushResponseDto;
+import com.pokeya.zhulong.api.dto.push.PushDTO;
+import com.pokeya.zhulong.api.dto.push.PushResponseDTO;
 
 public interface PushMessageApi {
-    PushResponseDto pushMessage(PushDto message);
+    PushResponseDTO pushMessage(PushDTO message);
 }

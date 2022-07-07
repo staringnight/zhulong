@@ -14,7 +14,7 @@ import lombok.Data;
  * }
  */
 @Data
-public class WeComPushBo {
+public class WeComPushBO {
     /**
      * 类型  text  markdown image news
      */
@@ -22,8 +22,8 @@ public class WeComPushBo {
     /**
      * 内容
      */
-    private WeComPushContentBo text;
-    private WeComPushContentBo markdown;
+    private WeComPushContentBO text;
+    private WeComPushContentBO markdown;
 
 }
 

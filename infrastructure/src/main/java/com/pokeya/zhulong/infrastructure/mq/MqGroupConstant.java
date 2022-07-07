@@ -1,4 +1,4 @@
-package com.pokeya.zhulong.infrastructure;
+package com.pokeya.zhulong.infrastructure.mq;
 
 /**
  * @author mac

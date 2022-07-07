@@ -10,7 +10,7 @@ import com.pokeya.zhulong.api.enums.push.PushUrlEnums;
  * @param contents            内容
  * @param mentionedMobileList 通知人手机号 "@all"全部
  */
-public record PushDto(PushUrlEnums pushUrlEnums, PushContentEnums pushContentEnums, String[] contents,
+public record PushDTO(PushUrlEnums pushUrlEnums, PushContentEnums pushContentEnums, String[] contents,
                       String mentionedMobileList) implements java.io.Serializable {
 
     public static final String mentionedMobile = "@all";
