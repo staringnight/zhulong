@@ -4,10 +4,10 @@ import com.pokeya.zhulong.api.PushMessageApi;
 import com.pokeya.zhulong.api.dto.push.PushDTO;
 import com.pokeya.zhulong.api.dto.push.PushResponseDTO;
 import com.pokeya.zhulong.service.biz.PushMessageBiz;
+import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-@Service
+@DubboService
 public class PushMessageImpl implements PushMessageApi {
     private PushMessageBiz pushMessageBiz;
 
