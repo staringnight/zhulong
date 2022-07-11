@@ -2,6 +2,7 @@ package com.pokeya.zhulong.web.controller;
 
 import com.pokeya.yao.utils.JSON;
 import com.pokeya.zhulong.service.biz.MetricBiz;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
 import java.nio.charset.StandardCharsets;
@@ -12,6 +13,7 @@ import java.util.List;
 /**
  * @author mac
  */
+@Tag(name = "metric", description = "埋点")
 @RestController()
 @RequestMapping("metric")
 public class MetricController {
