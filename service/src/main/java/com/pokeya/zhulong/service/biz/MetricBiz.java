@@ -21,16 +21,14 @@ public class MetricBiz {
     }
 
     public void upload(List<HashMap> list) {
-        for (HashMap hashMap : list) {
-            try {
-                metricRepository.send(hashMap);
-            } catch (Exception e) {
-                log.error("MetricBiz", e);
-            }
+        try {
+            metricRepository.send(list);
+        } catch (Exception e) {
+            log.error("MetricBiz", e);
         }
     }
 
-    public void pushMessage(HashMap message) {
-        metricRepository.pushMessage(message);
+    public void pushMessage(List<HashMap> list) {
+        metricRepository.pushMessage(list);
     }
 }

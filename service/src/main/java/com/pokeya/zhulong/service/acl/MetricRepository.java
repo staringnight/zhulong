@@ -2,6 +2,7 @@ package com.pokeya.zhulong.service.acl;
 
 
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * 埋点实践
@@ -10,7 +11,7 @@ import java.util.HashMap;
  */
 public interface MetricRepository {
 
-    void send(HashMap hashMap);
+    void send(List<HashMap> list);
 
-    void pushMessage(HashMap message);
+    void pushMessage(List<HashMap> list);
 }

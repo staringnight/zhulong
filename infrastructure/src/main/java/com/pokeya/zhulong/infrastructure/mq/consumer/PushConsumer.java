@@ -3,6 +3,7 @@ package com.pokeya.zhulong.infrastructure.mq.consumer;
 import cn.hutool.core.util.HashUtil;
 import com.pokeya.yao.component.infrastructure.RedisUtil;
 import com.pokeya.yao.constant.NumberConstant;
+import com.pokeya.yao.exception.RedisException;
 import com.pokeya.yao.utils.JSON;
 import com.pokeya.zhulong.api.constant.MqConstant;
 import com.pokeya.zhulong.api.dto.push.PushDTO;
@@ -24,8 +25,7 @@ import java.time.Duration;
  */
 @Slf4j
 @Component
-@RocketMQMessageListener(consumerGroup = MqGroupConstant.PUSH_CONSUMER_GROUP, topic = MqConstant.INFRASTRUCTURE_TOOL_TOPIC,
-        selectorExpression = MqConstant.InfrastructureToolTag.TOOL_PUSH_TAG, maxReconsumeTimes = 3)
+@RocketMQMessageListener(consumerGroup = MqGroupConstant.PUSH_CONSUMER_GROUP, topic = MqConstant.INFRASTRUCTURE_TOOL_TOPIC, selectorExpression = MqConstant.InfrastructureToolTag.TOOL_PUSH_TAG, maxReconsumeTimes = 3)
 public class PushConsumer implements RocketMQListener<PushDTO> {
 
     private PushMessageBiz pushMessageBiz;
@@ -44,12 +44,24 @@ public class PushConsumer implements RocketMQListener<PushDTO> {
         log.info("PushConsumer onMessage:{}", jsonString);
         Long timeMillis = System.currentTimeMillis();
         Long hash = HashUtil.mixHash(jsonString);
-        String key = MessageFormat.format(RedisKeys.PUSH_MESSAGE_KEY, hash.toString());
-        if (redisUtil.getRedisTemplate().opsForValue().setIfAbsent(key, timeMillis.toString(), Duration.ofMinutes(NumberConstant.num_1))) {
-            PushResponseDTO pushResponseDto = pushMessageBiz.pushMessage(message);
-            log.info("PushConsumer onMessage result:{}", JSON.toJSONString(pushResponseDto));
+        String mqKey = MessageFormat.format(MqConstant.TOPIC_TAG_FORMAT, MqConstant.INFRASTRUCTURE_TOOL_TOPIC, MqConstant.InfrastructureToolTag.TOOL_PUSH_TAG);
+        String key = MessageFormat.format(RedisKeys.MQ_MESSAGE_KEY, mqKey, hash.toString());
+        try {
+            if (redisUtil.getRedisTemplate().opsForValue().setIfAbsent(key, timeMillis.toString(), Duration.ofMinutes(NumberConstant.num_1))) {
+                PushResponseDTO pushResponseDto = pushMessageBiz.pushMessage(message);
+                log.info("PushConsumer onMessage result:{}", JSON.toJSONString(pushResponseDto));
+            }
+        } catch (Exception e) {
+            log.error("PushConsumer", e);
+            try {
+                redisUtil.remove(key);
+            } catch (RedisException ex) {
+                log.error("PushConsumer", e);
+            }
         }
         log.warn("PushConsumer onMessage repeat:{}", jsonString);
+
+
     }
 
 }

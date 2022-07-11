@@ -19,8 +19,9 @@ rocketmq:
   name-server: 47.110.240.168:9876
 
 elasticsearch:
-  hostname: localhost
-  port: 9200
+  clusterNodes: localhost:9200
+  account: elastic
+  password: El=b+i7mujQZTVcbtp_+
 
 weCom:
   webhookUrl:
