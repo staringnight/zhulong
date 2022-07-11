@@ -21,7 +21,7 @@ import java.util.List;
 @RocketMQMessageListener(consumerGroup = MqGroupConstant.PUSH_CONSUMER_GROUP, topic = MqConstant.INFRASTRUCTURE_TOOL_TOPIC, selectorExpression = MqConstant.InfrastructureToolTag.TOOL_METRIC_TAG, maxReconsumeTimes = 3)
 public class MetricConsumer implements RocketMQListener<List<HashMap>> {
 
-    private MetricBiz metricBiz;
+    private final MetricBiz metricBiz;
 
 
     @Autowired

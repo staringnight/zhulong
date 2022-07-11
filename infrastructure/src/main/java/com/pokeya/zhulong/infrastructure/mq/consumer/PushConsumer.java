@@ -28,9 +28,9 @@ import java.time.Duration;
 @RocketMQMessageListener(consumerGroup = MqGroupConstant.PUSH_CONSUMER_GROUP, topic = MqConstant.INFRASTRUCTURE_TOOL_TOPIC, selectorExpression = MqConstant.InfrastructureToolTag.TOOL_PUSH_TAG, maxReconsumeTimes = 3)
 public class PushConsumer implements RocketMQListener<PushDTO> {
 
-    private PushMessageBiz pushMessageBiz;
+    private final PushMessageBiz pushMessageBiz;
 
-    private RedisUtil redisUtil;
+    private final RedisUtil redisUtil;
 
     @Autowired
     public PushConsumer(PushMessageBiz pushMessageBiz, RedisUtil redisUtil) {
@@ -42,12 +42,12 @@ public class PushConsumer implements RocketMQListener<PushDTO> {
     public void onMessage(PushDTO message) {
         String jsonString = JSON.toJSONString(message);
         log.info("PushConsumer onMessage:{}", jsonString);
-        Long timeMillis = System.currentTimeMillis();
-        Long hash = HashUtil.mixHash(jsonString);
+        long timeMillis = System.currentTimeMillis();
+        long hash = HashUtil.mixHash(jsonString);
         String mqKey = MessageFormat.format(MqConstant.TOPIC_TAG_FORMAT, MqConstant.INFRASTRUCTURE_TOOL_TOPIC, MqConstant.InfrastructureToolTag.TOOL_PUSH_TAG);
-        String key = MessageFormat.format(RedisKeys.MQ_MESSAGE_KEY, mqKey, hash.toString());
+        String key = MessageFormat.format(RedisKeys.MQ_MESSAGE_KEY, mqKey, Long.toString(hash));
         try {
-            if (redisUtil.getRedisTemplate().opsForValue().setIfAbsent(key, timeMillis.toString(), Duration.ofMinutes(NumberConstant.num_1))) {
+            if (redisUtil.getRedisTemplate().opsForValue().setIfAbsent(key, Long.toString(timeMillis), Duration.ofMinutes(NumberConstant.num_1))) {
                 PushResponseDTO pushResponseDto = pushMessageBiz.pushMessage(message);
                 log.info("PushConsumer onMessage result:{}", JSON.toJSONString(pushResponseDto));
             }
