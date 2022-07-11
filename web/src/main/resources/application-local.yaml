@@ -18,6 +18,10 @@ rocketmq:
   #mq的nameserver地址
   name-server: 47.110.240.168:9876
 
+elasticsearch:
+  hostname: localhost
+  port: 9200
+
 weCom:
   webhookUrl:
     agileTeam: https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=1bbe7f05-8fbf-45a4-a360-83bf691e2f37

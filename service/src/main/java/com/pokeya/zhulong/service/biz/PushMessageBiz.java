@@ -5,7 +5,7 @@ import com.pokeya.zhulong.api.dto.push.PushDTO;
 import com.pokeya.zhulong.api.dto.push.PushResponseDTO;
 import com.pokeya.zhulong.service.acl.PushRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
@@ -18,7 +18,7 @@ import java.util.Map;
  * @author mac
  */
 @Slf4j
-@Component
+@Service
 public class PushMessageBiz {
 
     private Map<String, PushRepository> pushRepositoryMap;

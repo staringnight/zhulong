@@ -15,8 +15,26 @@
 
     <properties>
         <dzyx-grade.version>1.0.0-SNAPSHOT</dzyx-grade.version>
+        <elastic.version>8.2.2</elastic.version>
+        <jakarta.json.version>2.1.0</jakarta.json.version>
     </properties>
     <dependencies>
+        <dependency>
+            <groupId>co.elastic.clients</groupId>
+            <artifactId>elasticsearch-java</artifactId>
+            <version>${elastic.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>jakarta.json-api</artifactId>
+                    <groupId>jakarta.json</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <artifactId>jakarta.json-api</artifactId>
+            <groupId>jakarta.json</groupId>
+            <version>${jakarta.json.version}</version>
+        </dependency>
         <dependency>
             <groupId>com.pokeya</groupId>
             <artifactId>zhulong-service</artifactId>

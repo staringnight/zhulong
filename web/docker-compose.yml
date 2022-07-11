@@ -1,9 +1,9 @@
 version: "3"
 services:
-  zhulong-web:
-    hostname: tool
-    image: 172.16.56.117:18090/dzyx/zhulong-web:latest
-    container_name: zhulong-web
+  zhulong:
+    hostname: zhulong
+    image: harbor.dazhi100.com/dzyx/zhulong:latest
+    container_name: zhulong
     restart: always
     ports:
       - "18010:18010"

@@ -12,6 +12,7 @@ public class MqConstant {
 
     public static class InfrastructureToolTag {
         public static final String TOOL_PUSH_TAG = "TOOL_PUSH_TAG";
+        public static final String TOOL_METRIC_TAG = "TOOL_METRIC_TAG";
     }
 }
 
