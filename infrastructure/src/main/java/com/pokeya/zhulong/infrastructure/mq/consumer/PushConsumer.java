@@ -47,11 +47,12 @@ public class PushConsumer implements RocketMQListener<PushDTO> {
         String mqKey = MessageFormat.format(MqConstant.TOPIC_TAG_FORMAT, MqConstant.INFRASTRUCTURE_TOOL_TOPIC, MqConstant.InfrastructureToolTag.TOOL_PUSH_TAG);
         String key = MessageFormat.format(RedisKeys.MQ_MESSAGE_KEY, mqKey, hash.toString());
         try {
-            if (redisUtil.getRedisTemplate().opsForValue().setIfAbsent(key, timeMillis.toString(), Duration.ofMinutes(NumberConstant.num_1))) {
+            if (Boolean.TRUE.equals(redisUtil.getRedisTemplate().opsForValue().setIfAbsent(key, timeMillis.toString(), Duration.ofMinutes(NumberConstant.num_1)))) {
                 PushResponseDTO pushResponseDto = pushMessageBiz.pushMessage(message);
                 log.info("PushConsumer onMessage result:{}", JSON.toJSONString(pushResponseDto));
             }
-        } finally {
+        } catch (Exception e) {
+            log.error("PushConsumer", e);
             try {
                 redisUtil.remove(key);
             } catch (RedisException ex) {
