@@ -51,7 +51,8 @@ public class PushConsumer implements RocketMQListener<PushDTO> {
                 PushResponseDTO pushResponseDto = pushMessageBiz.pushMessage(message);
                 log.info("PushConsumer onMessage result:{}", JSON.toJSONString(pushResponseDto));
             }
-        } finally {
+        } catch (Exception e) {
+            log.error("PushConsumer", e);
             try {
                 redisUtil.remove(key);
             } catch (RedisException ex) {

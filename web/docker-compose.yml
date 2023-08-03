@@ -7,6 +7,7 @@ services:
     restart: always
     ports:
       - "18010:18010"
+      - "20881:20881"
     networks:
       - dzyx-server-network
 
